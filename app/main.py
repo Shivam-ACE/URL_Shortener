@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from app.db.base import Base
 from app.db.session import engine
@@ -14,6 +15,10 @@ from app.api.redirect import redirect_routes
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="URL Shortener", version="1.0.0")
+
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse(url="/docs")
 
 @app.api_route("/health", methods=["GET", "HEAD"])
 def health():
