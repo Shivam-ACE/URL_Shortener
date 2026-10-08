@@ -15,10 +15,10 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="URL Shortener", version="1.0.0")
 
-app.include_router(auth_routes)
-app.include_router(link_routes)
-app.include_router(redirect_routes)
-
 @app.get("/health")
 def health():
     return {"Status": "200 OK"}
+
+app.include_router(auth_routes)
+app.include_router(link_routes)
+app.include_router(redirect_routes)
